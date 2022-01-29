@@ -1,0 +1,12 @@
+<div class="post-feed">
+	{{#get "posts" include="tags,author" filter="featured:true" limit="all" as |featured|}}
+		{{#foreach featured}}
+			{{> "post-card"}}
+		{{/foreach}}
+	{{/get}}
+	{{#foreach posts}}
+		{{#unless featured}}
+			{{> "post-card"}}
+		{{/unless}}
+	{{/foreach}}
+</div>
