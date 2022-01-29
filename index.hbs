@@ -32,12 +32,17 @@ into the {body} of the default.hbs template --}}
 <main id="site-main" class="site-main outer">
     <div class="inner posts">
 
-        <div class="post-feed">
-            {{#foreach posts}}
-              {{#unless featured}}
-			           {{> "post-card"}}
-		          {{/unless}}
-            {{/foreach}}
+        <div class="post-feed{{#match @custom.feed_layout "List"}} list{{/match}}">
+          {{#get "posts" include="tags,author" filter="featured:true" limit="1" as |featured|}}
+		         {{#foreach featured}}
+			          {{> "post-card"}}
+		         {{/foreach}}
+	        {{/get}}
+	        {{#foreach posts}}
+		        {{#unless featured}}
+			         {{> "post-card"}}
+		        {{/unless}}
+	        {{/foreach}}
         </div>
 
     </div>
